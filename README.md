@@ -73,3 +73,54 @@ Use these credentials on the landing page to explore different personas:
 * **Life Events:** Allows borrowers to trigger temporary payment holidays for disasters/emergencies.
 * **Auto Consolidation:** Simulates merging multiple fixed EMIs into one flexible payment window.
 * **Explainable AI:** Every modified payment clearly states the arithmetic reason behind the adjustment. No black box ML.
+
+---
+
+## 🛠️ Absolute Beginner Guide (For a Fresh PC)
+
+If you are setting this up on a brand new computer that has **no development tools installed**, follow these steps from scratch:
+
+### 1. Install Git
+Git allows you to download (clone) the code from GitHub.
+* **Windows:** Download and install from [gitforwindows.org](https://gitforwindows.org/)
+* **Mac:** Open the Terminal app and type `git --version`. It will prompt you to install the Apple Developer Tools if you don't have them. (Alternatively, download from [git-scm.com](https://git-scm.com/downloads)).
+
+### 2. Install Node.js & npm
+Node.js is the runtime environment that powers the application, and `npm` is the package manager that installs the required dependencies.
+* Go to [nodejs.org](https://nodejs.org/).
+* Download and install the **LTS (Long Term Support)** version.
+* *Note: The installer automatically includes `npm`.*
+
+### 3. Open your Terminal / Command Prompt
+* **Windows:** Press the Windows Key, type `cmd` or `PowerShell`, and hit Enter.
+* **Mac:** Press Command + Space, type `Terminal`, and hit Enter.
+
+### 4. Verify Installations
+Type these commands and press Enter to ensure they were installed correctly (you should see version numbers):
+```bash
+git --version
+node -v
+npm -v
+```
+
+### 5. Download and Run FlexPay
+Now you can follow the standard setup process. Paste these commands one by one into your terminal:
+
+```bash
+# Download the code to your computer
+git clone https://github.com/Yeetl3r/FlexPay.git
+
+# Enter the project folder
+cd FlexPay
+
+# Install all the project dependencies
+npm install
+
+# Setup the database and generate demo data
+npm run db:setup
+
+# Start the application!
+npm run dev
+```
+
+Open your web browser and go to **[http://localhost:3000](http://localhost:3000)**!
