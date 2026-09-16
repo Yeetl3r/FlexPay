@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String
+  createdAt DateTime @default(now())
+  borrowerProfile BorrowerProfile?
+}
+model BorrowerProfile {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id])
+  occupation      String
+  location        String
+  ageRange        String
+  emergencyBuffer Float
+  financialStress Int      @default(0)
+  xpPoints        Int      @default(0)
+  loans           Loan[]
+  cashflows       CashflowRecord[]
+  lifeEvents      LifeEvent[]
+}
+model Loan {
+  id               String   @id @default(cuid())
+  borrowerId       String
+  borrower         BorrowerProfile @relation(fields: [borrowerId], references: [id])
+  principal        Float
+  remainingBalance Float
+  interestRate     Float
+  fixedPayment     Float
+  startDate        DateTime
+  maturityDate     DateTime
+  status           String
+  schedules        RepaymentSchedule[]
+}
+model CashflowRecord {
+  id               String   @id @default(cuid())
+  borrowerId       String
+  borrower         BorrowerProfile @relation(fields: [borrowerId], references: [id])
+  month            Int
+  year             Int
+  income           Float
+  essentialExpense Float
+  businessExpense  Float
+  otherDebtPayment Float
+  isPredicted      Boolean  @default(false)
+}
+model RepaymentSchedule {
+  id               String   @id @default(cuid())
+  loanId           String
+  loan             Loan     @relation(fields: [loanId], references: [id])
+  month            Int
+  year             Int
+  expectedDate     DateTime
+  fixedAmount      Float
+  flexibleAmount   Float
+  status           String
+  reason           String?
+}
+model LifeEvent {
+  id               String   @id @default(cuid())
+  borrowerId       String
+  borrower         BorrowerProfile @relation(fields: [borrowerId], references: [id])
+  type             String
+  date             DateTime
+  description      String
+  status           String
+  suggestedAction  String?
+}
